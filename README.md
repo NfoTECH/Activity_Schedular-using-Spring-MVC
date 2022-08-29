@@ -26,8 +26,6 @@ A task should be made up of
 * ® Updated At 
 * ® Completed At
 
-* view all tasks.
-
 A user should be able to 
   * View all tasks. 
   * View a particular task. 
