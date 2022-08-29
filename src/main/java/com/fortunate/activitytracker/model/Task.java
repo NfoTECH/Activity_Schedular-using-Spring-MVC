@@ -21,11 +21,12 @@ public class Task {
     private int id;
     private String title;
     private String description;
+
+    @Column(columnDefinition = "varchar(255) default 'Pending'")
     private String status;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
