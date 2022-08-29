@@ -1,7 +1,6 @@
 ## ACTIVITY SCHEDULER
 
 Activity Scheduler is a web application that allows users to create and manage their own schedules of activities.
-
 ### Tools
 
 * Spring MVC 
@@ -10,6 +9,7 @@ Activity Scheduler is a web application that allows users to create and manage t
 * Spring Data JPA 
 * JUnit/Mockito 
 * CSS
+* PostgreSQL
 
 ### User Stories
 
