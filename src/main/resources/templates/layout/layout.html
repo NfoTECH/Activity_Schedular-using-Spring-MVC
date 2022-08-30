@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Activity Tracker</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Main Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" th:href="@{/}">Activity Tracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <form class="form-inline" action="" th:action="@{/}"  method="GET">
+        <input class="form-control me-sm-2" type="search" placeholder="Search Task" aria-label="Search"  name="searchTerm" id="searchTerm" list="Product">
+        <datalist id="Product">
+            <option value="">Phone</option>
+            <option value="">Laptop</option>
+            <option value="">TV</option>
+            <option value="">Home Theatre</option>
+            <option value="">Refrigerator</option>
+        </datalist>
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Go to Task</button>
+    </form>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+<!--                <a class="nav-link" th:href="@{/login}">Login</a>-->
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{/}">Login</a>
+                            <a class="dropdown-item" th:href="@{/}">Logout</a>
+                            <a class="dropdown-item" th:href="@{/}">Sign Up</a>
+                        </div>
+                    </div>
+            </li>
+<!--            <li class="nav-item">-->
+<!--&lt;!&ndash;                <a class="nav-link" th:href="@{/contact}">Contact Us</a>&ndash;&gt;-->
+<!--                <div class="dropdown">-->
+<!--                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        About Us-->
+<!--                    </button>-->
+<!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                        <a class="dropdown-item" th:href="@{https://github.com/NfoTECH}">GitHub</a>-->
+<!--                        <a class="dropdown-item" th:href="@{https://www.linkedin.com/in/fortunate-nwachukwu-807825a4}">LinkedIn</a>-->
+<!--                        <a class="dropdown-item" th:href="@{https://twitter.com/fortunenathan}">Twitter</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+        </ul>
+    </div>
+</nav>
+
+<!-- Content Section -->
+<section layout:fragment="content">
+    <p>This is filled by the content template.</p>
+</section>
+
+<!-- Footer -->
+<footer class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-muted">&copy; 2022 NfoTECH Group. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Optional Section -->
+<th:block layout:fragment="optional" />
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
