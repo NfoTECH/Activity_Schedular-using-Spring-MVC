@@ -1,5 +1,6 @@
 package com.fortunate.activitytracker.service.impl;
 
+import com.fortunate.activitytracker.dto.TaskDTO;
 import com.fortunate.activitytracker.dto.UserDTO;
 import com.fortunate.activitytracker.model.Task;
 import com.fortunate.activitytracker.model.User;
@@ -34,15 +35,17 @@ class UserServiceImplTest {
     UserServiceImpl userServiceImpl;
 
     private UserDTO userDTO;
+    private TaskDTO taskDTO;
     private User user;
+    private Task task;
 
     @BeforeEach
     void setUp() {
         LocalDateTime time = LocalDateTime.of(2020, Month.AUGUST, 1, 5, 30, 40, 3000);
         List<Task> taskList = new ArrayList<>();
         user = new User(1, "Fortunate", "fortunenwachukwu@gmail.com", "password", taskList);
-        Task task = new Task(1, "Task 1", "Learn Spring Boot", "Pending", time, time, time, user);
-
+        task = new Task(1, "Task 1", "Learn Spring Boot", "Pending", time, time, time, user);
+        taskDTO = new TaskDTO("Task 1", "Learn Spring Boot");
         userDTO = new UserDTO("Fortunate", "fortunenwachukwu@gmail.com", "password");
         when(userRepository.save(user)).thenReturn(user);
         when(taskRepository.save(task)).thenReturn(task);
@@ -50,6 +53,9 @@ class UserServiceImplTest {
         when(userRepository.findById(1)).thenReturn(Optional.ofNullable(user));
         when(taskRepository.findAll()).thenReturn(taskList);
         when(taskRepository.findById(1)).thenReturn(Optional.of(task));
+        when(taskRepository.listOfTasksByStatus("Pending")).thenReturn(taskList);
+        when(taskRepository.listOfTasksByStatus("Completed")).thenReturn(taskList);
+        when(taskRepository.listOfTasksByStatus("In Progress")).thenReturn(taskList);
     }
 
     @Test
@@ -58,10 +64,6 @@ class UserServiceImplTest {
         var actual = userServiceImpl.register(userDTO);
         var expected = user;
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void getUserByEmail() {
     }
 
     @Test
@@ -77,19 +79,42 @@ class UserServiceImplTest {
     }
 
     @Test
+    void getUserByEmail() {
+        var actual = userServiceImpl.getUserByEmail("fortunenwachukwu@gmail.com");
+        var expected = user;
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void createTask() {
+        when (userServiceImpl.createTask(taskDTO)).thenReturn(task);
+        var actual = userServiceImpl.createTask(taskDTO);
+        var expected = task;
+        assertEquals(expected, actual);
+
     }
 
     @Test
     void updateTitleAndDescription() {
+        when (userServiceImpl.updateTitleAndDescription(taskDTO, 1)).thenReturn(task);
+        var actual = userServiceImpl.updateTitleAndDescription(taskDTO, 1);
+        var expected = task;
+        assertEquals(expected, actual);
     }
 
     @Test
     void updateTaskStatus() {
+        when (userServiceImpl.updateTaskStatus("Completed", 1)).thenReturn(true);
+        var actual = userServiceImpl.updateTaskStatus("Completed", 1);
+        var expected = true;
+        assertEquals(expected, actual);
     }
 
     @Test
     void viewAllTasks() {
+        var actual = userServiceImpl.viewAllTasks();
+        var expected = new ArrayList<>();
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -98,9 +123,15 @@ class UserServiceImplTest {
 
     @Test
     void viewAllTasksByStatus() {
+        var actual = userServiceImpl.viewAllTasksByStatus("Pending");
+        var expected = new ArrayList<>();
+        assertEquals(expected, actual);
     }
 
     @Test
     void deleteById() {
+        when(userServiceImpl.deleteById(1)).thenReturn(true);
+
+        assertTrue(userServiceImpl.deleteById(1));
     }
 }
