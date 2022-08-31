@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class TaskDTO {
     private String title;
     private String description;
+    private String status;
 }

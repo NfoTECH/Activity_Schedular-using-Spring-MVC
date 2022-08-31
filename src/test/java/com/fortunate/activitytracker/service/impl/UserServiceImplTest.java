@@ -43,6 +43,7 @@ class UserServiceImplTest {
     void setUp() {
         LocalDateTime time = LocalDateTime.of(2020, Month.AUGUST, 1, 5, 30, 40, 3000);
         List<Task> taskList = new ArrayList<>();
+        taskList.add(task);
         user = new User(1, "Fortunate", "fortunenwachukwu@gmail.com", "password", taskList);
         task = new Task(1, "Task 1", "Learn Spring Boot", "Pending", time, time, time, user);
         taskDTO = new TaskDTO("Task 1", "Learn Spring Boot");
@@ -112,9 +113,7 @@ class UserServiceImplTest {
 
     @Test
     void viewAllTasks() {
-        var actual = userServiceImpl.viewAllTasks();
-        var expected = new ArrayList<>();
-        assertEquals(expected, actual);
+        assertEquals(1, userServiceImpl.viewAllTasks().size());
     }
 
     @Test
@@ -130,8 +129,8 @@ class UserServiceImplTest {
 
     @Test
     void deleteById() {
-        when(userServiceImpl.deleteById(1)).thenReturn(true);
-
-        assertTrue(userServiceImpl.deleteById(1));
+        var actual = userServiceImpl.deleteById(1);
+        var expected = true;
+        assertEquals(expected, actual);
     }
 }

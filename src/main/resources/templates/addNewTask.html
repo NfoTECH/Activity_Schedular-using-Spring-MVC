@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 </head>
-<title>Edit Task</title>
+<title>Create New Task</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -19,9 +19,9 @@
     </header>
     <main class="container">
         <div class="card mb-3">
-            <h1 class="my-highest-header card-header">Edit Task</h1>
+            <h1 class="my-highest-header card-header">Create new Task</h1>
             <div class="card card-body">
-                <form th:action="@{/edit/{id}}" th:object="${singleTask}" method="post">
+                <form th:action="@{/addTask}" th:object="${newTask}" method="post">
                     <div class="form-group">
                         <label for="name" class="form-control-label">Task Title</label>
                         <div class="input-group mb-3">
@@ -42,8 +42,9 @@
                                   th:field="*{description}" id="description" name="description">  </textarea>
                     </div>
 
-                    <input type="submit" value="Update Task" class="btn btn-info"/>
+                    <input type="submit" value="Add Task" class="btn btn-info"/>
                     <input type="reset" value="Clear" class="btn btn-secondary"/>
+
                 </form>
             </div>
         </div>

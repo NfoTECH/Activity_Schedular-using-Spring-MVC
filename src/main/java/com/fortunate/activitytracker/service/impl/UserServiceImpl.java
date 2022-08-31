@@ -2,6 +2,7 @@ package com.fortunate.activitytracker.service.impl;
 
 import com.fortunate.activitytracker.dto.TaskDTO;
 import com.fortunate.activitytracker.dto.UserDTO;
+import com.fortunate.activitytracker.exception.TaskNotFoundException;
 import com.fortunate.activitytracker.exception.UserNotFoundException;
 import com.fortunate.activitytracker.model.Task;
 import com.fortunate.activitytracker.model.User;
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
         Task task =  new Task();
         task.setTitle(taskDTO.getTitle());
         task.setDescription(taskDTO.getDescription());
+        task.setStatus(taskDTO.getStatus());
         return taskRepository.save(task);
     }
 
@@ -75,7 +77,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Task getTaskById(int id) {
         return taskRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("This task was not found"));
+                .orElseThrow(() -> new TaskNotFoundException("This task was not found"));
     }
 
     @Override

@@ -6,14 +6,15 @@ import com.fortunate.activitytracker.model.Task;
 import com.fortunate.activitytracker.model.User;
 import com.fortunate.activitytracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-@RestController
-@RequestMapping(value = "/api")
+@Controller
 public class UserController {
 
     private final UserService service;
@@ -35,13 +36,19 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping(value = "/signUpSuccess")
+    public String showSignUpSuccess(){
+        return "signUpSuccess";
+    }
+
+
     @PostMapping(value = "/userRegistration")
     public String registerUser(@ModelAttribute("userRegistration") UserDTO userDTO) {
       User registeredUser = service.register(userDTO);
       if (registeredUser != null) {
-          return "redirect:/login";
+          return "redirect:/signUpSuccess";
         } else {
-          return "redirect:/register";
+          return "redirect:/login";
         }
     }
 
@@ -52,7 +59,7 @@ public class UserController {
         }
 
 
-    @PostMapping(value = "loginUser")
+    @PostMapping(value = "/loginUser")
     public String loginUsers (@RequestParam String email, @RequestParam String password,
                               HttpSession session, Model model) {
         String message = service.loginUser(email, password);
@@ -72,7 +79,7 @@ public class UserController {
     public String viewHomePage(Model model) {
         List<Task> allTasks = service.viewAllTasks();
         model.addAttribute("listTasks", allTasks);
-        return "viewAllTask";
+        return "dashboard";
     }
 
     @GetMapping(value = "/task/{status}")
@@ -105,12 +112,18 @@ public class UserController {
     @GetMapping("/addNewTask")
     public String addTask(Model model) {
         model.addAttribute("newTask", new TaskDTO());
-        return "addTask";
+        return "addNewTask";
     }
 
     @PostMapping("/addTask")
     public String CreateTask(@ModelAttribute TaskDTO taskDTO) {
         service.createTask(taskDTO);
         return "redirect:/dashboard";
+    }
+
+    @GetMapping(value = "/logout")
+    public String logoutUser(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 }
