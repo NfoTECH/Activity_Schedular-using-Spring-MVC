@@ -1,8 +1,6 @@
 package com.fortunate.activitytracker.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,7 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -23,7 +21,8 @@ public class Task {
     private String title;
     private String description;
 
-    @Column(columnDefinition = "varchar(255) default 'Pending'")
+    @Column(name="status")
+   // @Enumerated(EnumType.STRING)
     private String status;
 
     @CreationTimestamp

@@ -23,16 +23,29 @@ public class UserController {
         this.service = service;
     }
 
+    @GetMapping("/")
+    public String landingPage(Model model, HttpSession session) {
+        model.addAttribute("userDetails", new UserDTO());
+        session.setAttribute("userDetails", new UserDTO());
+        return "login";
+    }
+
     @GetMapping("/dashboard")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
         List<Task> allTasks = service.viewAllTasks();
         model.addAttribute("listTasks", allTasks);
+//        List<Task> myTask = service.viewUserTask(new User(1, "Chioma", "chommy@gmail.com", "1234"));
+//        for(Task t: myTask){
+//            System.out.println(t.getTitle());
+//        }
+        session.setAttribute("listTasks", allTasks);
         return "dashboard";
     }
 
     @GetMapping(value = "/register")
-    public String showRegisterForm(Model model) {
+    public String showRegisterForm(Model model, HttpSession session) {
         model.addAttribute("userRegistration", new UserDTO());
+        session.setAttribute("userRegistration", new UserDTO());
         return "register";
     }
 
@@ -53,8 +66,9 @@ public class UserController {
     }
 
     @GetMapping(value = "login")
-        public String displayLoginPage(Model model) {
+        public String displayLoginPage(Model model, HttpSession session) {
             model.addAttribute("userDetails", new UserDTO());
+            session.setAttribute("userDetails", new UserDTO());
             return "login";
         }
 
@@ -75,43 +89,49 @@ public class UserController {
         }
     }
 
-    @GetMapping("/")
-    public String viewHomePage(Model model) {
-        List<Task> allTasks = service.viewAllTasks();
-        model.addAttribute("listTasks", allTasks);
-        return "dashboard";
+    @GetMapping("/task/{status}")
+    public String taskByStatus(@PathVariable(name = "status") String status) {
+        if(status.equals("PENDING")) {
+           return "pendingTasks";
+        } else if (status.equals("IN_PROGRESS")) {
+            return "tasksInProgress";
+        } else {
+            return "doneTasks";
+        }
     }
 
-    @GetMapping(value = "/task/{status}")
-    public String taskByStatus(@PathVariable(name = "status") String status, Model model) {
-        List<Task> allTasksByStatus = service.viewAllTasksByStatus(status);
-        model.addAttribute("taskByStatus", allTasksByStatus);
-        return "taskByStatus";
-    }
-
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteById(@PathVariable(name = "id") Integer id) {
         service.deleteById(id);
         return "redirect:/dashboard";
     }
 
     @GetMapping("/editPage/{id}")
-    public String editPage(@PathVariable(name = "id") Integer id, Model model) {
+    public String editPage(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
         Task task = service.getTaskById(id);
         model.addAttribute("singleTask", task);
-        model.addAttribute("taskBody", new TaskDTO());
+        session.setAttribute("singleTask", task);
         return "editTask";
     }
 
-    @PostMapping(value="/edit/{id}")
-    public String editTask(@PathVariable(name = "id") Integer id, @ModelAttribute TaskDTO taskDTO) {
-        service.updateTitleAndDescription(taskDTO, id);
+    @GetMapping("/viewTask/{id}")
+    public String viewSingleTask(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
+        Task task = service.getTaskById(id);
+        model.addAttribute("singleTask", task);
+        session.setAttribute("singleTask", task);
+        return "viewSingleTask";
+    }
+
+    @PostMapping("/edit")
+    public String editSingleTask(@ModelAttribute("singleTask") TaskDTO taskDTO, @RequestParam("hide") String id){
+        service.updateTitleAndDescription(taskDTO, Integer.parseInt(id));
         return "redirect:/dashboard";
     }
 
     @GetMapping("/addNewTask")
-    public String addTask(Model model) {
+    public String addTask(Model model, HttpSession session) {
         model.addAttribute("newTask", new TaskDTO());
+        session.setAttribute("newTask", new TaskDTO());
         return "addNewTask";
     }
 
@@ -123,6 +143,7 @@ public class UserController {
 
     @GetMapping(value = "/logout")
     public String logoutUser(HttpSession session) {
+        session.removeAttribute("userDetails");
         session.invalidate();
         return "redirect:/login";
     }

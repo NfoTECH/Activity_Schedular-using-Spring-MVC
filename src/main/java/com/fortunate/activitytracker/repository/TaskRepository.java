@@ -1,6 +1,7 @@
 package com.fortunate.activitytracker.repository;
 
 import com.fortunate.activitytracker.model.Task;
+import com.fortunate.activitytracker.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +18,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     @Modifying
     @Query(value = "UPDATE tasks SET status = ?1 WHERE id = ?2", nativeQuery = true)
     boolean updateTaskByIdAndStatus(String status, int id);
+
+    //List<Task> findAllByUser(User user);
 }
 

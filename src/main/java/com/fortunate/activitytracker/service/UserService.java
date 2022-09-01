@@ -18,4 +18,6 @@ public interface UserService {
     Task getTaskById(int id);
     List<Task> viewAllTasksByStatus(String status);
     boolean deleteById(int id);
+
+    //List<Task> viewUserTask(User user);
 }

@@ -4,6 +4,7 @@ import com.fortunate.activitytracker.dto.TaskDTO;
 import com.fortunate.activitytracker.dto.UserDTO;
 import com.fortunate.activitytracker.exception.TaskNotFoundException;
 import com.fortunate.activitytracker.exception.UserNotFoundException;
+
 import com.fortunate.activitytracker.model.Task;
 import com.fortunate.activitytracker.model.User;
 import com.fortunate.activitytracker.repository.TaskRepository;
@@ -52,7 +53,7 @@ public class UserServiceImpl implements UserService {
         Task task =  new Task();
         task.setTitle(taskDTO.getTitle());
         task.setDescription(taskDTO.getDescription());
-        task.setStatus(taskDTO.getStatus());
+        task.setStatus("PENDING");
         return taskRepository.save(task);
     }
 
@@ -90,4 +91,9 @@ public class UserServiceImpl implements UserService {
         taskRepository.deleteById(id);
         return true;
     }
+    //@Override
+    //public List<Task> viewUserTask(User user) {
+    //    return taskRepository.findAllByUser(user);
+    //}
+
 }

@@ -19,9 +19,9 @@
     </header>
     <main class="container">
         <div class="card mb-3">
-            <h1 class="my-highest-header card-header">Edit Task</h1>
+            <h3 class="my-highest-header card-header">Edit Task</h3>
             <div class="card card-body">
-                <form th:action="@{/edit/{id}}" th:object="${singleTask}" method="post">
+                <form th:action="@{/edit}" th:object="${singleTask}" method="post">
                     <div class="form-group">
                         <label for="name" class="form-control-label">Task Title</label>
                         <div class="input-group mb-3">
@@ -33,7 +33,7 @@
                             <input type="text" class="form-control"
                                    th:field="*{title}" id="name" name="title"/>
                         </div>
-
+                        <input name ="hide" th:value="${singleTask.getId()}" hidden>
                     </div>
                     <!--description-->
                     <div class="form-group">
@@ -41,6 +41,14 @@
                         <textarea class="form-control"
                                   th:field="*{description}" id="description" name="description">  </textarea>
                     </div>
+<!--                    <div class="update">-->
+<!--                        <select th:field="*{status}" th:if = "${TaskDTO.getStatus() != 'COMPLETED'}">-->
+<!--                            <option value="IN_PROGRESS">IN PROGRESS</option>-->
+<!--                            <option value="PENDING">PENDING</option>-->
+<!--                        </select>-->
+<!--                        <input th:field = "*{activityId}" type="text" hidden>-->
+<!--                        <button class="btn btn-info" th:disabled = "${dto.getStatus() == 'COMPLETED'}">UPDATE</button>-->
+<!--                    </div>-->
 
                     <input type="submit" value="Update Task" class="btn btn-info"/>
                     <input type="reset" value="Clear" class="btn btn-secondary"/>

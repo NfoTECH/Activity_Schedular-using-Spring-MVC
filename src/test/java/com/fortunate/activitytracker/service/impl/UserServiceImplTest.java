@@ -46,7 +46,7 @@ class UserServiceImplTest {
         taskList.add(task);
         user = new User(1, "Fortunate", "fortunenwachukwu@gmail.com", "password", taskList);
         task = new Task(1, "Task 1", "Learn Spring Boot", "Pending", time, time, time, user);
-        taskDTO = new TaskDTO("Task 1", "Learn Spring Boot");
+        taskDTO = new TaskDTO("Task 1", "Learn Spring Boot", "PENDING");
         userDTO = new UserDTO("Fortunate", "fortunenwachukwu@gmail.com", "password");
         when(userRepository.save(user)).thenReturn(user);
         when(taskRepository.save(task)).thenReturn(task);
@@ -55,7 +55,7 @@ class UserServiceImplTest {
         when(taskRepository.findAll()).thenReturn(taskList);
         when(taskRepository.findById(1)).thenReturn(Optional.of(task));
         when(taskRepository.listOfTasksByStatus("Pending")).thenReturn(taskList);
-        when(taskRepository.listOfTasksByStatus("Completed")).thenReturn(taskList);
+        when(taskRepository.listOfTasksByStatus("Done")).thenReturn(taskList);
         when(taskRepository.listOfTasksByStatus("In Progress")).thenReturn(taskList);
     }
 
@@ -105,8 +105,8 @@ class UserServiceImplTest {
 
     @Test
     void updateTaskStatus() {
-        when (userServiceImpl.updateTaskStatus("Completed", 1)).thenReturn(true);
-        var actual = userServiceImpl.updateTaskStatus("Completed", 1);
+        when (userServiceImpl.updateTaskStatus("Done", 1)).thenReturn(true);
+        var actual = userServiceImpl.updateTaskStatus("Done", 1);
         var expected = true;
         assertEquals(expected, actual);
     }

@@ -7,8 +7,8 @@
     <meta charset="ISO-8859-1">
     <title>Activity Tracker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 </head>
 
@@ -16,15 +16,8 @@
 <div layout:fragment="content">
     <section class="my-5">
         <div class="container my-2">
-            <div>
-                <a th:href="@{/addNewTask}" class="btn btn-primary btn-sm mb-3">Create New Task </a>
-                <a th:href="@{/task/{status}(status='PENDING')}" class="btn btn-secondary btn-sm mb-3">Pending Tasks</a>
-                <a th:href="@{/task/{status}(status='IN_PROGRESS')}" class="btn btn-success btn-sm mb-3">Tasks In Progress</a>
-                <a th:href="@{/task/{status}(status='DONE')}" class="btn btn-info btn-sm mb-3">Done Tasks</a>
-            </div>
-
-            <div class="card-header my-3">All Tasks</div>
-            <table border="1" class="table table-striped table-hover table-bordered">
+            <div class="card-header my-3">Tasks In Progress</div>
+            <table border="1" class="table table-striped table-bordered">
                 <thead class = "table-primary">
                 <tr>
                     <th>Title</th>
@@ -33,11 +26,11 @@
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th class="px-5">Completed At</th>
-                    <th class="px-4"> Actions </th>
+                    <th> Actions </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="task : ${listTasks}">
+                <tr th:each="task : ${session.listTasks}" th:if="${task.getStatus().toString() =='IN_PROGRESS'}">
                     <td th:text="${task.title}">Title</td>
                     <td th:text="${task.description}">Description</td>
                     <td th:text="${task.status}">Status</td>
@@ -48,11 +41,13 @@
                         <a th:href="@{/viewTask/{id}(id=${task.id})}" class="text-info" data-mdb-toggle="tooltip" title="View"><i class="fas fa-eye me-3"></i></a>
                         <a th:href="@{/editPage/{id}(id=${task.id})}" class="text-primary" data-mdb-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt me-3"></i></a>
                         <a th:href="@{/delete/{id}(id=${task.id})}" class="text-danger" data-mdb-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                        <a th:href="@{/moveTask/{id}(id=${task.id})}" class="text-warning" data-mdb-toggle="tooltip" title="Move"><i class="fa-solid fa-arrow-down-arrow-up"></i></a>
                     </td>
                 </tr>
                 </tbody>
             </table>
+            <div class="card-footer my-3">
+                <a th:href="@{/dashboard}">Back</a>
+            </div>
         </div>
     </section>
 </div>
