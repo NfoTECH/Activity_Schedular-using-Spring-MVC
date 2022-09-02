@@ -46,7 +46,7 @@ class UserServiceImplTest {
         taskList.add(task);
         user = new User(1, "Fortunate", "fortunenwachukwu@gmail.com", "password", taskList);
         task = new Task(1, "Task 1", "Learn Spring Boot", "Pending", time, time, time, user);
-        taskDTO = new TaskDTO("Task 1", "Learn Spring Boot", "PENDING");
+        taskDTO = new TaskDTO("Task 1", "Learn Spring Boot", "PENDING" , 1);
         userDTO = new UserDTO("Fortunate", "fortunenwachukwu@gmail.com", "password");
         when(userRepository.save(user)).thenReturn(user);
         when(taskRepository.save(task)).thenReturn(task);

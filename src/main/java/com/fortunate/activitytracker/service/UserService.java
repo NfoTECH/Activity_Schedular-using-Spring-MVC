@@ -20,4 +20,11 @@ public interface UserService {
     boolean deleteById(int id);
 
     //List<Task> viewUserTask(User user);
+
+    String moveForward(int id);
+
+    String moveBackward(int id);
+
+    User getUserById(int id);
+    List<Task> showTaskByUser(int id);
 }

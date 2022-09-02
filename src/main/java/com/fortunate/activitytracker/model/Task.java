@@ -20,9 +20,7 @@ public class Task {
     private int id;
     private String title;
     private String description;
-
     @Column(name="status")
-   // @Enumerated(EnumType.STRING)
     private String status;
 
     @CreationTimestamp

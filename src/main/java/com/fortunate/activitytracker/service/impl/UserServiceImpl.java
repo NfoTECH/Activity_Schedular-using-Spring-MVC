@@ -13,6 +13,7 @@ import com.fortunate.activitytracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -43,6 +44,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(int id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("This user was not found"));
+    }
+
+    @Override
     public String loginUser(String email, String password) {
         User user = getUserByEmail(email);
         return (user.getPassword().equals(password)) ? "success" : "Invalid password";
@@ -53,10 +60,15 @@ public class UserServiceImpl implements UserService {
         Task task =  new Task();
         task.setTitle(taskDTO.getTitle());
         task.setDescription(taskDTO.getDescription());
+        User loggedInUser = getUserById(taskDTO.getUser_id());
+        task.setUser(loggedInUser);
         task.setStatus("PENDING");
         return taskRepository.save(task);
     }
 
+    public List<Task> showTaskByUser(int id){
+        return  taskRepository.listOfTasksByUserId(id);
+    }
     @Override
     public Task updateTitleAndDescription(TaskDTO taskDTO, int id) {
         Task task = getTaskById(id);
@@ -96,4 +108,32 @@ public class UserServiceImpl implements UserService {
     //    return taskRepository.findAllByUser(user);
     //}
 
+    @Override
+    public String moveForward(int id) {
+        Task task = taskRepository.findById(id).get();
+        String status = task.getStatus();
+        if (status.equals("PENDING")) {
+            task.setStatus("IN_PROGRESS");
+        } else if (status.equals("IN_PROGRESS")) {
+            task.setStatus("DONE");
+            task.setCompletedAt(LocalDateTime.now());
+        } else {
+            return "Task is already completed";
+        }
+        taskRepository.save(task);
+        return "Task status updated";
+    }
+
+    @Override
+    public String moveBackward(int id) {
+        Task task = taskRepository.findById(id).get();
+        String status = task.getStatus();
+        if (status.equals("IN_PROGRESS")) {
+            task.setStatus("PENDING");
+        } else {
+            return "Task is already pending";
+        }
+        taskRepository.save(task);
+        return "Task status updated";
+    }
 }

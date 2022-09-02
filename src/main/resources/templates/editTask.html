@@ -41,15 +41,6 @@
                         <textarea class="form-control"
                                   th:field="*{description}" id="description" name="description">  </textarea>
                     </div>
-<!--                    <div class="update">-->
-<!--                        <select th:field="*{status}" th:if = "${TaskDTO.getStatus() != 'COMPLETED'}">-->
-<!--                            <option value="IN_PROGRESS">IN PROGRESS</option>-->
-<!--                            <option value="PENDING">PENDING</option>-->
-<!--                        </select>-->
-<!--                        <input th:field = "*{activityId}" type="text" hidden>-->
-<!--                        <button class="btn btn-info" th:disabled = "${dto.getStatus() == 'COMPLETED'}">UPDATE</button>-->
-<!--                    </div>-->
-
                     <input type="submit" value="Update Task" class="btn btn-info"/>
                     <input type="reset" value="Clear" class="btn btn-secondary"/>
                 </form>

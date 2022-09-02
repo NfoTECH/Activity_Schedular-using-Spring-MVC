@@ -32,14 +32,15 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String index(Model model, HttpSession session) {
-        List<Task> allTasks = service.viewAllTasks();
-        model.addAttribute("listTasks", allTasks);
-//        List<Task> myTask = service.viewUserTask(new User(1, "Chioma", "chommy@gmail.com", "1234"));
-//        for(Task t: myTask){
-//            System.out.println(t.getTitle());
-//        }
-        session.setAttribute("listTasks", allTasks);
-        return "dashboard";
+        if(session.getAttribute("id") == null){
+            return "redirect:/login";
+        }else {
+            List<Task> allTasks = service.showTaskByUser((Integer) session.getAttribute("id"));
+            model.addAttribute("listTasks", allTasks);
+
+            session.setAttribute("listTasks", allTasks);
+            return "dashboard";
+        }
     }
 
     @GetMapping(value = "/register")
@@ -100,12 +101,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteById(@PathVariable(name = "id") Integer id) {
-        service.deleteById(id);
-        return "redirect:/dashboard";
-    }
-
     @GetMapping("/editPage/{id}")
     public String editPage(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
         Task task = service.getTaskById(id);
@@ -138,6 +133,24 @@ public class UserController {
     @PostMapping("/addTask")
     public String CreateTask(@ModelAttribute TaskDTO taskDTO) {
         service.createTask(taskDTO);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping(value = "/arrow-right/{id}")
+    public String moveStatusForward(@PathVariable(name = "id") int id){
+        service.moveForward(id);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/arrow-left/{id}")
+    public String moveStatusBackward(@PathVariable(name = "id") int id){
+        service.moveBackward(id);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteById(@PathVariable(name = "id") Integer id) {
+        service.deleteById(id);
         return "redirect:/dashboard";
     }
 

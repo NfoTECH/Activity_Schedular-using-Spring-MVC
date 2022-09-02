@@ -37,9 +37,13 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" th:href="@{/login}">Login</a>
-                            <a class="dropdown-item" th:href="@{/logout}">Logout</a>
-                            <a class="dropdown-item" th:href="@{/register}">Sign Up</a>
+                            <th:block th:if="${session.email == null}">
+                                <a class="dropdown-item" th:href="@{/login}">Login</a>
+                                <a class="dropdown-item" th:href="@{/register}">Sign Up</a>
+                            </th:block>
+                            <th:block th:if="${session.email != null}">
+                                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                            </th:block>
                         </div>
                     </div>
             </li>

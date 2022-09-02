@@ -22,6 +22,8 @@
             <h3 class="my-highest-header card-header">Add New Task</h3>
             <div class="card card-body">
                 <form th:action="@{/addTask}" th:object="${newTask}" method="post">
+                    <input type="hidden" th:value="${#session.getAttribute('id')}" name="user_id">
+
                     <div class="form-group">
                         <label for="name" class="form-control-label">Task Title</label>
                         <div class="input-group mb-3">
