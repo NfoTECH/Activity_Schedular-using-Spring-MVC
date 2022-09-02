@@ -103,10 +103,6 @@ public class UserServiceImpl implements UserService {
         taskRepository.deleteById(id);
         return true;
     }
-    //@Override
-    //public List<Task> viewUserTask(User user) {
-    //    return taskRepository.findAllByUser(user);
-    //}
 
     @Override
     public String moveForward(int id) {

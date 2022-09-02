@@ -27,7 +27,7 @@ public class UserController {
     public String landingPage(Model model, HttpSession session) {
         model.addAttribute("userDetails", new UserDTO());
         session.setAttribute("userDetails", new UserDTO());
-        return "login";
+        return "index";
     }
 
     @GetMapping("/dashboard")
@@ -109,18 +109,18 @@ public class UserController {
         return "editTask";
     }
 
+    @PostMapping("/edit")
+    public String editSingleTask(@ModelAttribute("singleTask") TaskDTO taskDTO, @RequestParam("hide") String id){
+        service.updateTitleAndDescription(taskDTO, Integer.parseInt(id));
+        return "redirect:/dashboard";
+    }
+
     @GetMapping("/viewTask/{id}")
     public String viewSingleTask(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
         Task task = service.getTaskById(id);
         model.addAttribute("singleTask", task);
         session.setAttribute("singleTask", task);
         return "viewSingleTask";
-    }
-
-    @PostMapping("/edit")
-    public String editSingleTask(@ModelAttribute("singleTask") TaskDTO taskDTO, @RequestParam("hide") String id){
-        service.updateTitleAndDescription(taskDTO, Integer.parseInt(id));
-        return "redirect:/dashboard";
     }
 
     @GetMapping("/addNewTask")
