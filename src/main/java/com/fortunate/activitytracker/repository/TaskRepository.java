@@ -20,7 +20,5 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     @Modifying
     @Query(value = "UPDATE tasks SET status = ?1 WHERE id = ?2", nativeQuery = true)
     boolean updateTaskByIdAndStatus(String status, int id);
-
-    //List<Task> findAllByUser(User user);
 }
 
