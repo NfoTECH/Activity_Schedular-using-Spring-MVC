@@ -57,6 +57,7 @@ class UserServiceImplTest {
         when(taskRepository.listOfTasksByStatus("Pending")).thenReturn(taskList);
         when(taskRepository.listOfTasksByStatus("Done")).thenReturn(taskList);
         when(taskRepository.listOfTasksByStatus("In Progress")).thenReturn(taskList);
+        when(taskRepository.findById(1)).thenReturn(Optional.of(task));
     }
 
     @Test
@@ -88,12 +89,8 @@ class UserServiceImplTest {
 
     @Test
     void createTask() {
-        when (userServiceImpl.createTask(taskDTO)).thenReturn(task);
-        var actual = userServiceImpl.createTask(taskDTO);
-        var expected = task;
-        assertEquals(expected, actual);
-
     }
+
 
     @Test
     void updateTitleAndDescription() {
@@ -120,12 +117,6 @@ class UserServiceImplTest {
     void getTaskById() {
     }
 
-    @Test
-    void viewAllTasksByStatus() {
-        var actual = userServiceImpl.viewAllTasksByStatus("Pending");
-        var expected = new ArrayList<>();
-        assertEquals(expected, actual);
-    }
 
     @Test
     void deleteById() {

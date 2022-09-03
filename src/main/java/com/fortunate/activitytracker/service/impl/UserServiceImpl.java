@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService {
         return taskRepository.save(task);
     }
 
+    @Override
     public List<Task> showTaskByUser(int id){
         return  taskRepository.listOfTasksByUserId(id);
     }
@@ -91,11 +92,6 @@ public class UserServiceImpl implements UserService {
     public Task getTaskById(int id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException("This task was not found"));
-    }
-
-    @Override
-    public List<Task> viewAllTasksByStatus(String status) {
-        return taskRepository.listOfTasksByStatus(status);
     }
 
     @Override

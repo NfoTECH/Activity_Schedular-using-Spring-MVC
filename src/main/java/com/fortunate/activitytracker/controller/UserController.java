@@ -62,16 +62,21 @@ public class UserController {
       if (registeredUser != null) {
           return "redirect:/signUpSuccess";
         } else {
-          return "redirect:/login";
+          return "redirect:/register";
         }
     }
 
+
     @GetMapping(value = "login")
         public String displayLoginPage(Model model, HttpSession session) {
+        if (session.getAttribute("id") != null) {
+            return "redirect:/dashboard";
+        } else {
             model.addAttribute("userDetails", new UserDTO());
             session.setAttribute("userDetails", new UserDTO());
             return "login";
         }
+    }
 
 
     @PostMapping(value = "/loginUser")
@@ -109,6 +114,7 @@ public class UserController {
         return "editTask";
     }
 
+
     @PostMapping("/edit")
     public String editSingleTask(@ModelAttribute("singleTask") TaskDTO taskDTO, @RequestParam("hide") String id){
         service.updateTitleAndDescription(taskDTO, Integer.parseInt(id));
@@ -117,10 +123,14 @@ public class UserController {
 
     @GetMapping("/viewTask/{id}")
     public String viewSingleTask(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
-        Task task = service.getTaskById(id);
-        model.addAttribute("singleTask", task);
-        session.setAttribute("singleTask", task);
-        return "viewSingleTask";
+        if (session.getAttribute("id") != null) {
+            Task task = service.getTaskById(id);
+            model.addAttribute("singleTask", task);
+            session.setAttribute("singleTask", task);
+            return "viewSingleTask";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/addNewTask")
@@ -158,6 +168,6 @@ public class UserController {
     public String logoutUser(HttpSession session) {
         session.removeAttribute("userDetails");
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/";
     }
 }

@@ -16,10 +16,7 @@ public interface UserService {
     boolean updateTaskStatus(String status, int id);
     List<Task> viewAllTasks();
     Task getTaskById(int id);
-    List<Task> viewAllTasksByStatus(String status);
     boolean deleteById(int id);
-
-    //List<Task> viewUserTask(User user);
 
     String moveForward(int id);
 
