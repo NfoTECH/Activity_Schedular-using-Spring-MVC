@@ -39,3 +39,35 @@ A user should be able to
     * Edit Title 
     * Edit Description
 * Delete a task
+
+## IMAGES OF THE APPLICATION
+
+### HOME PAGE
+![This is an image](src/main/resources/static/screenshots/index_page.png)
+
+### REGISTER PAGE
+![This is an image](src/main/resources/static/screenshots/signUp_page.png)
+
+### LOGIN PAGE
+![This is an image](src/main/resources/static/screenshots/login_page.png)
+
+### DASHBOARD PAGE
+![This is an image](src/main/resources/static/screenshots/dashboard.png)
+
+### ADD TASK PAGE
+![This is an image](src/main/resources/static/screenshots/create_task.png)
+
+### EDIT TASK PAGE
+![This is an image](src/main/resources/static/screenshots/edit_task.png)
+
+### VIEW ALL TASKS PAGE
+![This is an image](src/main/resources/static/screenshots/view_task.png)
+
+### VIEW ALL PENDING TASKS PAGE
+![This is an image](src/main/resources/static/screenshots/pending_tasks.png)
+
+### VIEW ALL IN PROGRESS TASKS PAGE
+![This is an image](src/main/resources/static/screenshots/Tasks_in_progress.png)
+
+### VIEW ALL DONE TASKS PAGE
+![This is an image](src/main/resources/static/screenshots/done_tasks.png)
