@@ -170,4 +170,12 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
+
+    // THE BELOW METHOD IS NOT USED YET IN THIS PROJECT(An alternate method "taskByStatus" is used)
+    @GetMapping(value = "/singleTask/{status}")
+    public String taskByUserIdAndStatus(@PathVariable(name = "status") String status , Model model , HttpSession session){
+        List<Task> listOfTaskByStatus = service.findAllByUser_idAndStatus((Integer) session.getAttribute("id") , status);
+        model.addAttribute("tasksByStatus" , listOfTaskByStatus);
+        return "taskByStatus";
+    }
 }

@@ -113,8 +113,9 @@ public class UserServiceImpl implements UserService {
             return "Task is already completed";
         }
         taskRepository.save(task);
-        return "Task status updated";
+        return "Task status moved forward to " + task.getStatus();
     }
+
 
     @Override
     public String moveBackward(int id) {
@@ -123,9 +124,16 @@ public class UserServiceImpl implements UserService {
         if (status.equals("IN_PROGRESS")) {
             task.setStatus("PENDING");
         } else {
-            return "Task is already pending";
+            return "Task is already completed";
         }
         taskRepository.save(task);
-        return "Task status updated";
+        return "Task status moved back to " + task.getStatus();
+    }
+
+    @Override
+    public List<Task> findAllByUser_idAndStatus(int user_id , String status){
+        return taskRepository.findAllByUser_idAndStatus(user_id , status);
     }
 }
+
+

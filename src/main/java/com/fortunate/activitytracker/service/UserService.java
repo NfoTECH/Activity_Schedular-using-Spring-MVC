@@ -24,4 +24,6 @@ public interface UserService {
 
     User getUserById(int id);
     List<Task> showTaskByUser(int id);
+
+    List<Task> findAllByUser_idAndStatus(int user_id , String status);
 }
