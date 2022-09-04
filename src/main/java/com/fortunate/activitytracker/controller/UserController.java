@@ -67,7 +67,7 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "login")
+    @GetMapping(value = "/login")
         public String displayLoginPage(Model model, HttpSession session) {
         if (session.getAttribute("id") != null) {
             return "redirect:/dashboard";
