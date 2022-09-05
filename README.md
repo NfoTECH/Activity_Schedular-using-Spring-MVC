@@ -3,7 +3,7 @@
 Activity Scheduler is a web application that allows users to create and manage their own schedules of activities.
 ### Tools
 
-* Spring MVC 
+* Spring MVC
 * Thymeleaf 
 * Git 
 * Spring Data JPA 
@@ -51,7 +51,7 @@ A user should be able to
 ### LOGIN PAGE
 ![This is an image](src/main/resources/static/screenshots/login_page.png)
 
-### DASHBOARD PAGE
+### DASHBOARD(ALL TASKS) PAGE
 ![This is an image](src/main/resources/static/screenshots/dashboard.png)
 
 ### ADD TASK PAGE
@@ -60,7 +60,7 @@ A user should be able to
 ### EDIT TASK PAGE
 ![This is an image](src/main/resources/static/screenshots/edit_task.png)
 
-### VIEW ALL TASKS PAGE
+### VIEW SINGLE TASK PAGE
 ![This is an image](src/main/resources/static/screenshots/view_task.png)
 
 ### VIEW ALL PENDING TASKS PAGE
